@@ -23,6 +23,7 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.'''),
 }
 
+
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -47,14 +48,10 @@ while not user_input == 'q':
     print(
         f'You are currently located in {new_player.current_room.name}.\n')
 
-    user_input = input(
-        'Enter a command.  For possible commands type `help`.\n')
-
-    if user_input == 'help':
-        print('Enter n, e, w, s to move to a new room.\n')
-
-        print(
-            f'Please read the following description: {new_player.current_room.description}')
+    current_room_items = new_player.current_room.items
+    print('Current room items:')
+    for item in current_room_items:
+        print(item.name)
 
         if user_input == 'n' or user_input == 'e' or user_input == 'w' or user_input == 's':
             try:
@@ -71,7 +68,9 @@ while not user_input == 'q':
 
             except:
                 print('Move was not valid for current location.\n Try again.\n')
+
         else:
             print(f'{user_input} is and invalid move.\nPlease enter n, e, s, or w\n')
+
 
 print('The game has ended!')
