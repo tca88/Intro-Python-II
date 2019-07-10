@@ -21,6 +21,7 @@ to north. The smell of gold permeates the air.'''),
     'treasure': Room('Treasure Chamber', '''You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.'''),
+
 }
 
 
@@ -73,6 +74,26 @@ while not user_input == 'q':
     if user_input == 'help':
         print('Enter n, e, w, s to move to a new room.\nPick up items by using take `item name` or get `item name`\nDrop an item with drop `item name`.\n')
         continue
+
+    split_input = user_input.split(' ')
+
+    if len(split_input) == 2:
+        if split_input[0] == 'get' or split_input[0] == 'take':
+            room_items = new_player.current_room.items
+            for item in room_items:
+                if item.name == split_input[1]:
+                    new_player.current_room.items.remove(item)
+                    new_player.items.append(item)
+                    item.on_take()
+                else:
+                    print('The item is not in this room.')
+
+        if split_input[0] == 'drop':
+            for item in new_player.items:
+                if item.name == split_input[1]:
+                    new_player.items.remove(item)
+                    new_player.current_room.items.append(item)
+                    item.on_drop()
 
     else:
         print(
