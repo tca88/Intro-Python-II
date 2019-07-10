@@ -98,6 +98,7 @@ while not user_input == 'q':
                     new_player.current_room.items.remove(item)
                     new_player.items.append(item)
                     item.on_take()
+                    continue
                 else:
                     print('The item is not in this room.')
 
@@ -107,6 +108,9 @@ while not user_input == 'q':
                     new_player.items.remove(item)
                     new_player.current_room.items.append(item)
                     item.on_drop()
+                    continue
+                else:
+                    print('You can\'t drop something that doesn\'t exist')
 
     else:
         print(
