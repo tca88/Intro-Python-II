@@ -24,6 +24,17 @@ earlier adventurers. The only exit is to the south.'''),
 }
 
 
+room['outside'].items = [Item('wand', 'a magic wand of many wonders'), Item(
+    'staff', 'the staff of one thousand truths')]
+room['foyer'].items = [
+    Item('cardboard', 'a pretty crappy item, at least it appears to be.')]
+room['overlook'].items = [Item('mana', 'a bottle of mana'), Item(
+    'fire', 'a basic fire spell'), Item('ice', 'a basic, but cool ice spell')]
+room['narrow'].items = [Item('potion', 'a bottle of an odd, unknown viscous material'), Item(
+    'luck', 'the fairy Queen casts the spell of Luck upon yee soul.')]
+room['treasure'].items = [Item('goldnugget', 'A gold nugget, pretty self-explanatory'), Item(
+    'doom', 'this pretty much just blows up the entire world except for parts of Antartica, and half of Sri Lanka.')]
+
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -32,6 +43,9 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+room['treasure'].n_to = room['meadows']
+room['meadows'].s_to = room['mountain']
+room['mountain'].e_to = room['cove']
 
 
 player_name = input('Welcome!  Please enter your name, fine adventurer!\n')
@@ -53,6 +67,17 @@ while not user_input == 'q':
     for item in current_room_items:
         print(item.name)
 
+    user_input = input(
+        'Enter a command.  For possible commands type `help`.\n')
+
+    if user_input == 'help':
+        print('Enter n, e, w, s to move to a new room.\nPick up items by using take `item name` or get `item name`\nDrop an item with drop `item name`.\n')
+        continue
+
+    else:
+        print(
+            f'Please read the following description: {new_player.current_room.description}')
+
         if user_input == 'n' or user_input == 'e' or user_input == 'w' or user_input == 's':
             try:
                 if user_input == 'n':
@@ -68,7 +93,10 @@ while not user_input == 'q':
 
             except:
                 print('Move was not valid for current location.\n Try again.\n')
-
+        elif user_input == 'inventory' or user_input == 'i':
+            print('This is your current inventory:')
+            for item in new_player.items:
+                print(item.name)
         else:
             print(f'{user_input} is and invalid move.\nPlease enter n, e, s, or w\n')
 
