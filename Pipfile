@@ -4,8 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+room = "*"
+player = "*"
+
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3"
