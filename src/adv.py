@@ -1,4 +1,8 @@
 from room import Room
+from player import Player
+import textwrap
+import sys
+
 
 # Declare all the rooms
 
@@ -38,7 +42,6 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,3 +52,41 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+playerName = input("Please enter your name and let the adventure begin!: ")
+p = Player(playerName, room['outside'])
+print(f"Welcome, {p.name}! Let's begin the adventure!")
+
+inRoom = True
+while inRoom:
+    try:
+        print(f"You're currently in {p.current_room.name}! Here is what awaits you: {p.current_room.description}")
+        userInput = input('Pick a direction to move to next.\n Enter n for North, s for South, e for East or w for West. To quit the game, enter q. ')
+        cardinalDirection = userInput
+        if cardinalDirection == "q":
+            inRoom = False
+            print("You've successfully exited the game")
+            continue
+
+        if cardinalDirection == 'n' or cardinalDirection == 's' or cardinalDirection == 'e' or cardinalDirection == 'w':
+            try:
+                if cardinalDirection == 'n':
+                    newRoom = p.current_room.n_to
+                if cardinalDirection == 's':
+                    newRoom = p.current_room.s_to
+                if cardinalDirection == 'e':
+                    newRoom = p.current_room.e_to
+                if cardinalDirection == 'w':
+                    newRoom = p.current_room.w_to
+                p.current_room = newRoom
+                print(f"{p.current_room.name}")
+                continue
+
+            except ValueError:
+                print("That's not a valid direction. Please try again.")
+                continue
+    except:
+        print(f'Uh oh, looks like {cardinalDirection} is not a valid direction.\nYou will need to restart the game.\n')
+        sys.exit(1)
+        continue
+    
+print('The game has ended!')
