@@ -74,11 +74,11 @@ while inRoom and not userInput == 'q':
     print('Here are the items in the room you are in: ')
     for item in current_room_items:
         print(item.name)
-    userInput = input('Enter n, e, w, s to move to a new room.\nPick up items by using get `item name`\nDrop an item with drop `item name`.\n You can also enter i to see your current inventory.')
+    userInput = input('Enter n, e, w, s to move to a new room.\nPick up items by using get item-name or take item-name\nDrop an item with drop item-name.\n You can also enter i to see your current inventory.')
     actionInputs = userInput.split(' ')
 
     if len(actionInputs) == 2:
-        if actionInputs[0] == 'get':
+        if actionInputs[0] == 'get' or actionInputs[0] == 'take':
             roomItems = p.current_room.items
             for item in roomItems:
                 if item.name == actionInputs[1]:
