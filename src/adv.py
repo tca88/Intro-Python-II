@@ -140,7 +140,7 @@ while inRoom and not userInput == 'q':
                     item.on_drop()
                     continue
                 else:
-                    print('Looks like this item does not exist)
+                    print('Looks like this item does not exist.')
         else:
             print(f'{userInput} is an invalid move.\nPlease enter n, e, s, or w\n')
     
